@@ -1,0 +1,57 @@
+.env
+# Local benchmark runs, measured reports, photos, and private notes
+.jev-image-data/
+photos/
+.photo/
+kaggle.json
+/.kaggle/
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+node_modules/
+dist/
+*.log
+.venv/
+data/
+
+# Local credentials and machine-specific settings
+.env.*
+!.env.example
+/.aws/
+/.codex/
+# Share project skills while keeping local agent settings private.
+/.agents/*
+!/.agents/skills
+/.agent/*
+!/.agent/skills
+/.claude/*
+!/.claude/skills/
+!/.claude/CLAUDE.md
+*.pem
+*.key
+
+# Local editor settings and temporary exports
+/.idea/
+/.vscode/
+*.local
+*.bak
+*.swp
+
+# Other local credentials, sessions, and temporary exports
+/.ssh/
+/.config/
+.netrc
+.pypirc
+.npmrc.local
+credentials.json
+service-account*.json
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.zip
+*.tar
+*.tar.gz

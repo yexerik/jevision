@@ -1,0 +1,27 @@
+{
+  "name": "jevision-prototype",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "setup": "python3 scripts/setup.py",
+    "dev": "python3 scripts/services.py start",
+    "dev:api": "python3 scripts/run_server.py --api-only --reload",
+    "dev:web": "vite --config vite.config.js",
+    "build": "vite build --config vite.config.js",
+    "start": "pnpm dev",
+    "start:prod": "python3 scripts/services.py start --production",
+    "stop": "python3 scripts/services.py stop",
+    "check:public": "python3 scripts/check_public.py",
+    "test": "node --test tests/*.test.js && .venv/bin/python -m unittest discover -s tests -v"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "vite": "^8.3.0"
+  }
+}

@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f6f8" />
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem("jev-image-theme");
+          const dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.dataset.theme = dark ? "dark" : "light";
+        } catch {
+          document.documentElement.dataset.theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+      })();
+    </script>
+    <title>Jevision prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="/" aria-label="Jevision prototype home">
+          <span class="brand-mark"><span></span><span></span><span></span><span></span></span>
+          <span class="brand-name">Jevision<span class="brand-subtitle">prototype</span></span>
+        </a>
+
+        <button class="workspace-switcher" type="button">
+          <span class="workspace-avatar">E</span>
+          <span class="workspace-copy"><strong>Personal workspace</strong><small>Free workspace</small></span>
+          <span class="chevrons">⌃<br />⌄</span>
+        </button>
+
+        <div class="nav-label">WORKSPACE</div>
+        <nav class="main-nav" aria-label="Main navigation">
+          <button class="nav-item active" type="button" data-view="home"><span class="nav-icon">⌂</span>Overview</button>
+          <button class="nav-item" type="button" data-view="count"><span class="nav-icon">◉</span>Image tools</button>
+        </nav>
+
+        <div class="nav-heading"><span class="nav-label">TOOLS</span><span class="tiny-plus">＋</span></div>
+        <button class="tool-link selected" type="button" data-view="count">
+          <span class="tool-icon coral">▦</span><span>Count objects</span><span class="tool-dot"></span>
+        </button>
+        <button class="tool-link" type="button" data-view="find">
+          <span class="tool-icon lilac">⌖</span><span>Find objects</span>
+        </button>
+        <button class="tool-link" type="button" data-view="search">
+          <span class="tool-icon mint">⌕</span><span>Search images</span>
+        </button>
+
+        <button class="tool-link" type="button" data-view="qa"><span class="tool-icon lilac">▤</span><span>Validate HTML layouts</span></button>
+
+        <div class="dataset-nav-block">
+          <div class="nav-heading"><span class="nav-label">DATASETS</span><button id="sidebarAddDataset" class="tiny-plus" type="button" aria-label="Add dataset">＋</button></div>
+          <div id="datasetNav" class="dataset-nav-list"><div class="sidebar-empty">Your image sets will appear here</div></div>
+        </div>
+
+        <div class="sidebar-bottom">
+          <div class="api-status"><span id="apiDot" class="status-dot"></span><span id="apiStatusText">Checking API…</span><button id="apiHelp" type="button" aria-label="API key setup information">?</button></div>
+          <a class="sidebar-docs" href="https://docs.typesafe.ai/images" target="_blank" rel="noreferrer"><span>↗</span> TypeSafe image docs</a>
+          <div class="profile-row"><span class="profile-avatar">U</span><span><strong>User</strong><small>Local account</small></span><span class="profile-more">•••</span></div>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div class="breadcrumbs"><span>Workspace</span><span class="crumb-slash">/</span><strong id="breadcrumbCurrent">Overview</strong></div>
+          <div class="topbar-actions">
+            <button id="themeToggle" class="button button-outline button-small theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode"><span aria-hidden="true">☾</span><span class="theme-toggle-label">Dark mode</span></button>
+            <span class="local-chip"><span></span>Local workspace</span>
+            <button id="topAddDataset" class="button button-outline button-small" type="button"><span>＋</span> New dataset</button>
+            <button class="avatar-small" type="button" aria-label="Profile">E</button>
+          </div>
+        </header>
+
+        <section id="homeView" class="page-view home-view">
+          <div class="welcome-line"><span class="eyebrow"><span class="eyebrow-mark">✳</span> COMMUNITY PROTOTYPE</span><span class="date-label" id="dateLabel"></span></div>
+          <section class="hero-card">
+            <div class="hero-copy">
+              <div class="hero-kicker"><span class="pulse-light"></span> TYPESAFE · IMAGE TOOLS</div>
+              <h1>Jevision<br /><em>prototype</em></h1>
+              <p>A community prototype for counting and finding objects, searching photos, and checking HTML layouts with TypeSafe.</p>
+              <button class="button button-light" type="button" data-view="count">Explore image tools <span>↗</span></button>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+              <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+              <div class="art-core"><span class="core-spark">✳</span><span class="core-word">COMMUNITY<br />PROTOTYPE</span></div>
+              <div class="art-float float-top"><span class="float-icon">▦</span><span>object count</span><span class="float-check">✓</span></div>
+              <div class="art-float float-bottom"><span class="float-dot"></span><span>ready to explore</span></div>
+              <span class="art-star star-a">✳</span><span class="art-star star-b">·</span><span class="art-star star-c">✦</span>
+            </div>
+          <div class="hero-index">01 <span>/ 03</span></div>
+          </section>
+
+          <div class="section-heading"><div><span class="eyebrow muted-eyebrow">THE TOOLBOX</span><h2>Pick a place to start</h2></div><button class="text-link" type="button" data-view="count">View all tools <span>→</span></button></div>
+          <div class="tool-cards">
+            <button class="feature-card feature-count" type="button" data-view="count">
+              <span class="feature-index">01 / COUNT</span>
+              <span class="feature-art count-art" aria-hidden="true">
+                <svg class="tool-card-art" viewBox="0 0 200 84" fill="none">
+                  <g class="count-objects"><circle cx="38" cy="30" r="9"/><circle cx="68" cy="51" r="9"/><circle cx="89" cy="27" r="9"/></g>
+                  <path class="count-divider" d="M115 22v40"/>
+                  <rect class="count-total" x="132" y="17" width="48" height="50" rx="10"/>
+                  <text class="count-total-number" x="156" y="52" text-anchor="middle">3</text>
+                </svg>
+              </span>
+              <span class="feature-title">Count objects <span>↗</span></span><span class="feature-description">Count cars, people, or anything else in a photo.</span><span class="feature-foot"><span class="available-pill"><i></i> AVAILABLE</span><span class="feature-arrow">→</span></span>
+            </button>
+            <button class="feature-card" type="button" data-view="find">
+              <span class="feature-index">02 / LOCATE</span>
+              <span class="feature-art find-art" aria-hidden="true">
+                <svg class="tool-card-art" viewBox="0 0 200 84" fill="none">
+                  <path class="find-guides" d="M16 22v-9h12m144 0h12v9M16 62v9h12m144 0h12v-9"/>
+                  <g class="find-shapes"><ellipse cx="49" cy="43" rx="8" ry="13"/><ellipse cx="104" cy="46" rx="11" ry="8"/><ellipse cx="154" cy="34" rx="7" ry="10"/></g>
+                  <g class="find-boxes"><rect x="33" y="22" width="32" height="42" rx="3"/><rect x="84" y="30" width="40" height="32" rx="3"/><rect x="140" y="17" width="28" height="34" rx="3"/></g>
+                  <g class="find-centers"><circle cx="49" cy="43" r="2"/><circle cx="104" cy="46" r="2"/><circle cx="154" cy="34" r="2"/></g>
+                </svg>
+              </span>
+              <span class="feature-title">Find objects <span>↗</span></span><span class="feature-description">Locate target objects in a photo with bounding boxes.</span><span class="feature-foot"><span class="available-pill"><i></i> AVAILABLE</span><span class="feature-arrow">→</span></span>
+            </button>
+            <button class="feature-card" type="button" data-view="search">
+              <span class="feature-index">03 / SEARCH</span><span class="feature-art search-art"><i class="search-ring"></i><i class="search-target">✳</i><i class="search-line"></i></span>
+              <span class="feature-title">Search images <span>↗</span></span><span class="feature-description">Search a dataset with a description of what you want to see.</span><span class="feature-foot"><span class="available-pill"><i></i> AVAILABLE</span><span class="feature-arrow">→</span></span>
+            </button>
+            <button class="feature-card" type="button" data-view="qa">
+              <span class="feature-index">04 / VALIDATE</span>
+              <span class="feature-art layout-art" aria-hidden="true">
+                <svg class="tool-card-art" viewBox="0 0 200 84" fill="none">
+                  <rect class="layout-window" x="33" y="10" width="134" height="64" rx="5"/>
+                  <path class="layout-toolbar" d="M33 24h134"/>
+                  <g class="layout-dots"><circle cx="42" cy="17" r="2"/><circle cx="49" cy="17" r="2"/><circle cx="56" cy="17" r="2"/></g>
+                  <g class="layout-blocks"><rect x="41" y="32" width="26" height="34" rx="3"/><rect x="75" y="32" width="83" height="12" rx="3"/><rect x="75" y="50" width="37" height="16" rx="3"/><rect x="120" y="50" width="38" height="16" rx="3"/></g>
+                </svg>
+              </span>
+              <span class="feature-title">Validate HTML layouts <span>↗</span></span><span class="feature-description">Render generated HTML and check its visual layout.</span><span class="feature-foot"><span class="available-pill"><i></i> EXPERIMENTAL</span><span class="feature-arrow">→</span></span>
+            </button>
+          </div>
+
+          <section class="dataset-summary">
+            <div class="summary-top"><div><span class="eyebrow muted-eyebrow">YOUR LIBRARY</span><h2>Datasets <span id="datasetCountPill" class="count-pill">0</span></h2></div><button class="button button-outline button-small" id="createDatasetHome" type="button"><span>＋</span> Create dataset</button></div>
+            <div id="datasetSummaryGrid" class="dataset-summary-grid"><div class="library-empty"><span class="empty-stack">▤</span><strong>No datasets yet</strong><span>Create a dataset and add photos to start exploring your images.</span><button type="button" class="inline-action" id="createFirstDataset">Create your first dataset <span>→</span></button></div></div>
+          </section>
+          <footer class="page-footer"><span>A community prototype.</span><span>Powered by <strong>TypeSafe</strong> <i>✳</i></span></footer>
+        </section>
+
+        <section id="qaView" class="page-view feature-view hidden">
+          <div class="tool-page-head"><div><div class="eyebrow muted-eyebrow">04 / VISUAL QA</div><h1>Validate HTML layouts</h1><p>Render generated HTML and ask Jev to check for visible layout problems.</p></div></div>
+          <div class="layout-grid">
+            <div class="layout-panel layout-source-panel">
+              <div class="layout-panel-heading"><h2>HTML page</h2><span class="layout-tag">Source</span></div>
+              <p class="layout-intro">Paste your HTML, upload a file, or load an example.</p>
+              <form id="layoutForm">
+                <div class="layout-example-fields">
+                  <div><label class="form-label" for="layoutDataset">Example dataset</label><select id="layoutDataset" class="text-input" aria-label="Select HTML layout dataset" disabled><option value="">Loading downloaded datasets…</option></select></div>
+                  <div><label class="form-label" for="layoutExample">Example page</label><select id="layoutExample" class="text-input" aria-label="Select dataset HTML and screenshot pair" disabled><option value="">Choose a page…</option></select></div>
+                </div>
+                <label class="form-label" for="layoutFile">Upload HTML</label><input id="layoutFile" type="file" accept=".html,.htm,text/html" aria-describedby="layoutFileHint" />
+                <p id="layoutFileHint" class="layout-field-hint">.html or .htm · up to 5 MB</p>
+                <label class="form-label" for="layoutHtml">HTML source</label><textarea id="layoutHtml" class="text-input" rows="14" required spellcheck="false" autocapitalize="off" placeholder="<!doctype html>&#10;<html>&#10;  Paste your page here…&#10;</html>"></textarea>
+                <label class="form-label" for="layoutViewport">Preview size</label><select id="layoutViewport" class="text-input"><option value="desktop">Desktop · 1280 × 900</option><option value="mobile">Mobile · 390 × 844</option></select>
+                <details id="layoutOptionalChecks" class="layout-disclosure">
+                  <summary>Optional checks</summary>
+                  <div class="layout-disclosure-body"><label class="form-label" for="layoutExpected">Expected components</label><textarea id="layoutExpected" class="text-input" rows="3" maxlength="2000" placeholder="e.g. a table, a bar chart, and a world map" aria-describedby="layoutExpectedHint"></textarea><p id="layoutExpectedHint" class="layout-field-hint">List anything that should be visible. Validation will also check for missing components.</p></div>
+                </details>
+                <div class="layout-actions"><button id="layoutRender" class="button button-outline" type="submit">Render preview</button><button id="layoutValidate" class="button button-dark" type="submit">Validate layout</button></div>
+                <p class="layout-field-hint">Preview renders locally. Validation sends screenshots to TypeSafe.</p>
+              </form>
+              <details class="layout-disclosure layout-dataset-help">
+                <summary>Get example pages</summary>
+                <div class="layout-disclosure-body"><p>Design2Code includes 484 HTML pages and reference screenshots. Its rick.jpg placeholder image is not included.</p><button id="downloadDesign2Code" class="button button-outline" type="button">Download Design2Code</button><p id="layoutDownloadStatus" role="status"></p><a href="https://huggingface.co/datasets/SALT-NLP/Design2Code-hf" target="_blank" rel="noreferrer">Dataset files and card ↗</a></div>
+              </details>
+            </div>
+            <div class="layout-review-column">
+              <section class="layout-panel" aria-labelledby="layoutReviewHeading">
+                <div class="layout-panel-heading"><h2 id="layoutReviewHeading">Visual review</h2><button id="layoutExport" class="button button-outline" type="button" disabled>Export JSON</button></div>
+                <p id="layoutStatus" class="layout-status" data-tone="neutral" role="status" aria-live="polite">Add HTML, then render a preview or validate its layout.</p>
+                <div id="layoutResults" class="layout-results" aria-label="Layout check results"></div>
+                <details class="layout-disclosure">
+                  <summary>How validation works</summary>
+                  <div class="layout-disclosure-body"><p>Jev checks the visible screenshot for clipped content, unintended overlap, and unreadable text. An example reference adds a comparison check.</p><p>Each percentage estimates the chance of a problem. Overlap is flagged at 60% or above; other checks at 70% or above. Above 30% needs review. Clipping and overlap can both be flagged.</p><p>These thresholds were assessed on synthetic layouts and reference controls. Review the screenshot yourself; a low score does not guarantee a correct page.</p><p>Rendering is offline. Inline CSS, scripts, and embedded images work; external resources and local files are blocked. Only the selected viewport is checked.</p></div>
+                </details>
+              </section>
+              <section class="layout-panel layout-preview-panel" aria-labelledby="layoutPreviewHeading">
+                <div class="layout-panel-heading"><h2 id="layoutPreviewHeading">Rendered page</h2><span id="layoutPreviewSize" class="layout-tag">Desktop · 1280 × 900</span></div>
+                <div id="layoutPreviewEmpty" class="layout-preview-empty"><svg viewBox="0 0 64 48" width="64" height="48" fill="none" aria-hidden="true"><rect x="2" y="2" width="60" height="44" rx="5" stroke="currentColor" stroke-width="2"/><path d="M2 13h60M10 8h2m4 0h2m4 0h2M12 23h16m-16 7h34m-34 7h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><strong>Your preview will appear here</strong><span>Load HTML and choose Render preview to see the page before validating.</span></div>
+                <img id="layoutPreview" class="layout-preview hidden" alt="Rendered HTML viewport" />
+              </section>
+              <section id="layoutReferencePanel" class="layout-panel layout-preview-panel hidden" aria-labelledby="layoutReferenceHeading">
+                <div class="layout-panel-heading"><h2 id="layoutReferenceHeading">Example reference</h2><span class="layout-tag">Original</span></div>
+                <p class="layout-field-hint">The reference may use a different viewport. Missing placeholder images are expected.</p><img id="layoutReference" class="layout-preview hidden" alt="Original Design2Code reference screenshot" />
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section id="findView" class="page-view feature-view hidden">
+          <div class="tool-page-head"><div><div class="eyebrow muted-eyebrow"><span>IMAGE TOOLS</span><span class="crumb-slash">/</span><span>LOCATE</span></div><h1>Find objects</h1><p>Select a dataset photo to locate one or all instances of its target with bounding boxes.</p></div><div class="feature-status"><span></span> TOOL ACTIVE</div></div>
+          <div class="find-workspace">
+            <aside class="feature-config-panel find-controls" aria-label="Find objects controls">
+              <h2 class="find-controls-title">Search settings</h2>
+              <label class="config-dataset-select"><span class="select-label">Dataset</span><span class="select-control"><span class="select-leading">▤</span><select id="findDatasetSelect" aria-label="Select dataset to find objects in"><option value="">Select a dataset</option></select><span class="select-chevron">⌄</span></span></label>
+              <div id="findTargetLabel" class="feature-target-label">Choose a dataset.</div>
+              <label class="config-dataset-select"><span class="select-label">Search mode</span><select id="findModeSelect" class="feature-select" aria-label="Choose one or all objects to locate"><option value="one">Locate one</option><option value="all" selected>Locate all</option></select></label>
+              <label id="findVersionControl" class="config-dataset-select hidden"><span class="select-label">Find all version</span><select id="findVersionSelect" class="feature-select" aria-label="Choose Find All strategy"><option value="v6" selected>V6 · Experimental · Default</option><option value="v5">V5 · Experimental</option><option value="v4">V4 · Fixed baseline</option><option value="v3">V3 · Adaptive grid</option><option value="v2">V2 · Count + Box tiles</option><option value="v1">V1 · Original adaptive</option></select></label>
+              <details id="findV6Settings" class="feature-prompt-preview find-terms-help hidden">
+                <summary>Advanced settings · V6 <span id="findV6SettingsState">Defaults</span></summary>
+                <div class="find-disclosure-content">
+                  <p class="feature-toolbar-note">Enter 0–100%. These are model signals, not measured accuracy. Changes apply to the next search and reset on reload.</p>
+                  <fieldset id="findV6SettingsFields" class="find-settings-fields" aria-label="V6 detection settings"><div id="findV6SettingsInputs"></div><button id="findV6SettingsReset" type="button" class="button button-outline">Reset to defaults</button></fieldset>
+                </div>
+              </details>
+              <p id="findV6SettingsError" class="error hidden" role="alert"></p>
+              <details id="findVersionDetails" class="feature-prompt-preview find-terms-help hidden">
+                <summary>About this version</summary>
+                <div class="find-disclosure-content"><div id="findVersionSummary" class="feature-toolbar-note"></div></div>
+              </details>
+              <details id="findTermsHelp" class="feature-prompt-preview find-terms-help">
+                <summary>Understanding results</summary>
+                <div class="find-disclosure-content">
+                  <div class="prompt-row"><span>Model confidence</span><p>A confidence percentage is the model's signal about its answer. It is not measured accuracy on your photos.</p></div>
+                  <div class="prompt-row"><span>Precision and recall</span><p>With reference labels, precision measures how many returned boxes were correct; recall measures how many real objects were found. IoU measures overlap between predicted and reference boxes. Benchmarks use .50 as the primary overlap requirement and .30 for looser localization.</p></div>
+                  <div class="prompt-row"><span>Review states</span><p>V5 separates confirmed-by-checks results from located boxes needing extent review. Confirmed does not mean independently verified. Unresolved identity groups and cluster references are not extra objects. A completed minimum scan does not guarantee every object was found.</p></div>
+                </div>
+              </details>
+              <details id="findPromptDetails" class="feature-prompt-preview find-terms-help">
+                <summary>Questions and instructions</summary>
+                <div class="find-disclosure-content">
+                  <div class="prompt-row"><span>Question</span><p id="findQuestionText">Select a dataset to see the find question.</p></div>
+                  <div class="prompt-row"><span>Instructions</span><p id="findInstructionText">Choose one visible example of the dataset target.</p></div>
+                  <div class="prompt-row"><span id="findBoxPromptLabel">Box instructions</span><p id="findBoxInstructionText">The box question locates one example object.</p></div>
+                  <div class="prompt-row"><span>How boxes are accepted</span><p id="findVerifyQuestionText">Choice determines whether this crop has none, one, or several targets. A Box question runs alongside Choice.</p></div>
+                  <div class="prompt-row"><span>Coordinate mapping</span><p id="findVerifyInstructionText">Each question points to a named crop. The red-outline check accepts a recognizable target clipped by a crop or partly hidden.</p></div>
+                  <div class="prompt-row"><span>Low-confidence box check</span><p id="findRetryInstructionText">Several crops split. Low-confidence boxes get a red-outline check; uncertain boxes split and search again.</p></div>
+                </div>
+              </details>
+            </aside>
+            <section class="find-main-panel" aria-label="Photo and object location">
+              <details id="findRunSettings" class="feature-prompt-preview find-terms-help hidden"><summary id="findRunSettingsSummary">Settings used for this result</summary><pre id="findRunConfigData" class="find-run-config"></pre></details>
+              <div id="findPhotoStage" class="find-photo-stage"><div class="feature-empty"><span>⌖</span><strong>Choose a dataset photo</strong><small>The target comes from the selected dataset.</small></div></div>
+              <div class="find-photo-controls">
+                <button id="findPreviousPhoto" class="photo-step-button" type="button" aria-label="Previous photo">‹</button>
+                <label class="photo-slider-wrap"><span id="findPhotoPosition">0 photos</span><input id="findPhotoSlider" type="range" min="0" max="0" value="0" aria-label="Select photo to find objects in" disabled /></label>
+                <button id="findNextPhoto" class="photo-step-button" type="button" aria-label="Next photo">›</button>
+              </div>
+              <button id="findObjectButton" class="button button-dark find-object-button" type="button" disabled>Find target <span>⌖</span></button>
+              <div id="findObjectStatus" class="find-object-status" role="status" aria-live="polite">Choose a dataset photo, then run Find target.</div>
+              <div id="findDetectionDetails" class="find-detection-details hidden" aria-label="Bounding box details"></div>
+              <details id="findEvidencePanel" class="feature-prompt-preview hidden"><summary>Detection evidence and rejection reasons</summary><p>Review outlines may overlap or show the same object. They are excluded from the located count.</p><pre id="findEvidenceData"></pre></details>
+              <section id="findClusterDetail" class="find-cluster-detail hidden" aria-label="Zoomed cluster findings"></section>
+              <section id="findApiJsonPanel" class="find-api-json-panel" aria-label="Find Objects API JSON">
+                <div class="find-api-json-heading">API requests, crop images, and responses <span>Open Request JSON or Response JSON in a popup. Each card shows the crops sent.</span></div>
+                <div id="findApiExchangeList" class="find-api-exchange-list"><p class="find-api-empty">Run Find Objects to see each API request and its response here.</p></div>
+              </section>
+            </section>
+          </div>
+          <p class="estimate-note find-estimate">Image and Box analysis is experimental. Locate all uses bounded region splitting; review the highlighted boxes and any unresolved regions.</p>
+        </section>
+
+        <section id="searchView" class="page-view feature-view hidden">
+          <div class="tool-page-head"><div><div class="eyebrow muted-eyebrow"><span>IMAGE TOOLS</span><span class="crumb-slash">/</span><span>SEARCH</span></div><h1>Search images</h1><p>Choose how many photos to test per page, then move through the dataset.</p></div><div class="feature-status"><span></span> TOOL ACTIVE</div></div>
+          <div class="search-workspace">
+            <aside class="feature-config-panel">
+              <label class="config-dataset-select"><span class="select-label">DATASET TO SEARCH</span><span class="select-control"><span class="select-leading">▤</span><select id="searchDatasetSelect" aria-label="Select dataset to search"><option value="">Select a dataset</option></select><span class="select-chevron">⌄</span></span></label>
+              <label class="config-page-size"><span class="select-label">PHOTOS PER PAGE</span><select id="searchPageSize" class="feature-select" aria-label="Photos to test per page"><option value="6">6 photos</option><option value="12" selected>12 photos</option><option value="24">24 photos</option></select></label>
+              <span id="searchPhotoCount" class="feature-toolbar-note">Choose a dataset.</span>
+              <div class="feature-prompt-preview" aria-label="Question and instruction sent to image search">
+                <div class="prompt-row"><span>QUESTION</span><p id="searchQuestionText">Does this photo match the visual search request in `query`?</p></div>
+                <div class="prompt-row"><span>INSTRUCTION</span><p id="searchInstructionText">Match when the requested object, scene, or visible detail is clearly present. Treat absent or unidentifiable content as no match.</p></div>
+              </div>
+            </aside>
+            <section class="search-main-panel" aria-label="Search request and results">
+              <form id="imageSearchForm" class="image-search-form"><label class="search-query-wrap"><span aria-hidden="true">⌕</span><input id="semanticSearchQuery" type="search" maxlength="200" placeholder="e.g. a whale with its mouth open" aria-label="Describe what to find in the photos" required /></label><button id="semanticSearchButton" class="button button-dark" type="submit">Search images <span>↗</span></button></form>
+              <div id="searchProgress" class="search-progress hidden" role="status"></div>
+              <div class="search-pagination"><button id="searchPreviousPage" class="button button-outline button-small" type="button" disabled>← Previous</button><span id="searchPageLabel">Page 1 of 1</span><button id="searchNextPage" class="button button-outline button-small" type="button" disabled>Next →</button></div>
+              <div id="semanticSearchResults" class="semantic-results"><div class="feature-empty"><span>⌕</span><strong>Search your dataset</strong><small>Describe a visible object, scene, or detail to find matching photos.</small></div></div>
+            </section>
+          </div>
+          <p class="estimate-note search-estimate">Results are grouped by estimated match probability in 10% bands. Review the images yourself.</p>
+        </section>
+
+        <section id="countView" class="page-view count-view hidden">
+          <div class="tool-page-head">
+            <div><div class="eyebrow muted-eyebrow"><span>IMAGE TOOLS</span><span class="crumb-slash">/</span><span>VISION</span></div><h1>Count objects</h1><p>Choose a dataset and photo. Jev counts the dataset’s target automatically.</p></div>
+            <div class="feature-status"><span></span> TOOL ACTIVE</div>
+          </div>
+          <div class="count-toolbar">
+            <button id="refreshLibraryButton" class="button button-outline button-small" type="button" title="Rescan the workspace photo folder">↻ Rescan folder</button>
+            <button id="addPhotosButton" class="button button-outline button-small" type="button" disabled><span>＋</span> Add photos</button>
+            <button id="editDatasetButton" class="button button-outline button-small" type="button" disabled>Dataset settings</button>
+            <button id="newDatasetButton" class="button button-dark button-small" type="button"><span>＋</span> New dataset</button>
+          </div>
+
+          <div class="count-workspace">
+            <section class="image-library-panel">
+              <div class="panel-head"><div><h2>Choose a photo</h2><p id="photoPanelSubhead">Select a dataset to see its images.</p></div><button id="imageSortButton" class="sort-button" type="button" title="Sort newest first">↕</button></div>
+              <label class="count-dataset-select"><span class="select-label">DATASET</span><span class="select-control"><span class="select-leading">▤</span><select id="datasetSelect" aria-label="Select dataset"><option value="">Select a dataset</option></select><span class="select-chevron">⌄</span></span></label>
+              <section class="count-prompt-preview" aria-label="Question and instruction sent for object counting">
+                <div class="count-prompt-item"><span>QUESTION</span><p id="countQuestionText">Select a dataset to see the count question.</p></div>
+                <div class="count-prompt-item"><span>INSTRUCTION</span><p id="countInstructionText">The dataset target determines which objects are counted.</p></div>
+              </section>
+              <div class="photo-gallery">
+                <div id="photoGrid" class="photo-grid"><div class="photo-grid-empty"><span>▧</span><strong>Your photos live here</strong><small>Select a dataset or create one to add images.</small></div></div>
+                <div id="photoSliderControls" class="photo-slider-bar hidden">
+                  <button id="previousPhotoButton" class="photo-step-button" type="button" aria-label="Previous photo">‹</button>
+                  <label class="photo-slider-wrap"><span id="photoSliderPosition">0 photos</span><input id="photoSlider" type="range" min="0" max="0" value="0" aria-label="Select photo" disabled /></label>
+                  <button id="nextPhotoButton" class="photo-step-button" type="button" aria-label="Next photo">›</button>
+                </div>
+              </div>
+              <div class="library-panel-foot"><span id="photoCountFoot">0 photos</span><span>Workspace folder <i>ⓘ</i></span></div>
+            </section>
+            <aside class="count-results-floating" aria-label="Count result and photo navigation">
+              <div class="count-result-panel">
+                  <div class="floating-target-label"><span class="eyebrow muted-eyebrow">COUNT TARGET</span><strong id="activeTargetLabel">Choose a dataset to see its count target.</strong></div>
+                  <div id="resultCard" class="result-card hidden" aria-live="polite"></div>
+                  <button id="countButton" class="button button-outline count-button" type="button" disabled><span class="count-button-spark">↻</span><span>Count objects in photo</span><span class="button-arrow">↗</span></button>
+                  <div class="privacy-note"><span>⌑</span><span>Your photo is sent to TypeSafe for analysis and isn’t saved by this app’s server.</span></div>
+                  <div id="errorMessage" class="error-message hidden" role="alert"></div>
+              </div>
+            </aside>
+          </div>
+          <footer class="page-footer count-page-footer"><span>Image features are experimental in TypeSafe.</span><a href="https://docs.typesafe.ai/images" target="_blank" rel="noreferrer">Learn about image support ↗</a></footer>
+        </section>
+      </main>
+    </div>
+
+    <div id="datasetModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <form id="datasetForm" class="modal-card">
+        <button class="modal-close" id="closeModal" type="button" aria-label="Close">×</button>
+        <span class="modal-icon">▤</span><span class="eyebrow muted-eyebrow">IMAGE LIBRARY</span><h2 id="modalTitle">Create a dataset</h2><p id="modalDescription">Group photos together so you can find and analyze them in one place.</p>
+        <label class="form-label" for="datasetName">DATASET NAME</label><input id="datasetName" class="text-input" type="text" maxlength="60" placeholder="e.g. Street study, Parking lot A" required />
+        <label class="form-label" for="datasetTarget">COUNT TARGET</label>
+        <select id="datasetTarget" class="dataset-target-select" required><option value="cars">Cars</option><option value="people">People</option><option value="buses">Buses</option><option value="bicycles">Bicycles</option><option value="trucks">Trucks</option><option value="whales">Whales</option><option value="other">Custom object…</option></select>
+        <input id="customDatasetTarget" class="text-input custom-target hidden" type="text" maxlength="80" placeholder="e.g. seals, red umbrellas, bicycles" />
+        <div id="datasetPhotoUploadFields">
+          <label class="form-label file-label" for="datasetFiles">ADD PHOTOS <span>OPTIONAL</span></label>
+          <label class="dropzone" for="datasetFiles"><span class="upload-icon">↑</span><strong>Choose photos to add</strong><small>PNG or JPEG · up to 25 photos at once</small><input id="datasetFiles" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg" multiple /></label>
+          <div id="fileSelectionSummary" class="file-selection-summary">No photos selected</div>
+        </div>
+        <div class="modal-actions"><button class="button button-text" id="cancelModal" type="button">Cancel</button><button class="button button-dark" type="submit"><span id="datasetSubmitIcon">＋</span> <span id="datasetSubmitLabel">Create dataset</span></button></div>
+      </form>
+    </div>
+    <input id="addPhotosInput" class="visually-hidden" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg" multiple />
+    <div id="toast" class="toast hidden" role="status"></div>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 210" role="img" aria-labelledby="title description">
+  <title id="title">Intersection over Union examples</title>
+  <desc id="description">Orange reference boxes and blue predicted boxes have equal size. Identical boxes have IoU one. Shifting by one third of a box width gives IoU one half; shifting by one half gives IoU one third.</desc>
+  <rect width="720" height="210" rx="12" fill="#f6f8fb"/>
+  <g font-family="system-ui, sans-serif" fill="#15263e" font-size="15">
+    <text x="20" y="27">Orange: reference · Blue: prediction · Shared area is darker</text>
+    <g fill="#ed8a23" fill-opacity=".3" stroke="#b55700" stroke-width="3" stroke-dasharray="6 3">
+      <rect x="35" y="50" width="90" height="90"/>
+      <rect x="265" y="50" width="90" height="90"/>
+      <rect x="495" y="50" width="90" height="90"/>
+    </g>
+    <g fill="#2865d7" fill-opacity=".3" stroke="#184fae" stroke-width="2">
+      <rect x="35" y="50" width="90" height="90"/>
+      <rect x="295" y="50" width="90" height="90"/>
+      <rect x="540" y="50" width="90" height="90"/>
+    </g>
+    <g font-weight="600">
+      <text x="35" y="166">IoU = 1.00</text>
+      <text x="265" y="166">IoU = 0.50</text>
+      <text x="495" y="166">IoU ≈ 0.33</text>
+    </g>
+    <g font-size="13">
+      <text x="35" y="189">Passes at .50</text>
+      <text x="265" y="189">Passes at .50</text>
+      <text x="495" y="189">Passes at .30; fails at .50</text>
+    </g>
+  </g>
+</svg>
