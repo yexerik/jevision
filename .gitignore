@@ -23,8 +23,6 @@ data/
 # Share project skills while keeping local agent settings private.
 /.agents/*
 !/.agents/skills
-/.agent/*
-!/.agent/skills
 /.claude/*
 !/.claude/skills/
 !/.claude/CLAUDE.md

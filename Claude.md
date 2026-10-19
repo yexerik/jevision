@@ -4,7 +4,7 @@ Shared context for coding agents. `Agent.md` is a relative symlink to this file;
 
 ## Shared project skills
 
-Maintain skills in `.claude/skills/`; `.agent/skills` and `.agents/skills` are relative symlinks. Local settings beside them stay ignored.
+Maintain skills in `.claude/skills/`; Codex discovers them through the relative symlink `.agents/skills` → `../.claude/skills`. Local settings beside them stay ignored.
 
 | Skill | Use |
 |---|---|
